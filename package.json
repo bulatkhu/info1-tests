@@ -2,10 +2,9 @@
   "name": "nodejs-retrieving-items-images",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
   "scripts": {
     "test": "jest",
-    "start-dev": "nodemon index.ts",
+    "start-dev": "nodemon ./src/index.ts",
     "start": "node index.ts"
   },
   "author": "bulatkhu",

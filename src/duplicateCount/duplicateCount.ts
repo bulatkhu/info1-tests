@@ -8,7 +8,6 @@ export function duplicateCount(text: string): number {
     }, {});
 
   const textLower = text.toLowerCase();
-  console.log('distinctValues', [...new Set(textLower)], 'values', textLower);
 
   return Object.values(duplicates).reduce(
     (sum, amount) => (!amount ? sum : sum + 1),
