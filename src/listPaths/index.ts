@@ -1,6 +1,6 @@
 type EdgesType = number[];
 // Bitte verändern Sie diese Klasse nicht!
-class CustomNode {
+export class CustomNode {
   color: string = 'red';
   edges: EdgesType = [];
 
@@ -10,17 +10,10 @@ class CustomNode {
   }
 }
 
-const firstGraph: CustomNode[] = [
-  new CustomNode('red', [1, 2, 4]),
-  new CustomNode('white', [2]),
-  new CustomNode('red', [3, 4]),
-  new CustomNode('yellow', [4]),
-  new CustomNode('blue', []),
-];
-
-const undesirableColor = 'blue';
-
-function listPaths(preliminaryGraph: CustomNode[]) {
+export function listPaths(
+  preliminaryGraph: CustomNode[],
+  undesirableColor?: string
+) {
   const undesiredColorIndices = preliminaryGraph.reduce<number[]>(
     (indices, node, index) => {
       if (
@@ -60,6 +53,3 @@ function listPaths(preliminaryGraph: CustomNode[]) {
   }
   return values;
 }
-
-const values = listPaths(firstGraph);
-console.log('values: ', values, 'values.length: ', values.length);
