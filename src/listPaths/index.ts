@@ -10,7 +10,7 @@ class CustomNode {
   }
 }
 
-const graph: CustomNode[] = [
+const firstGraph: CustomNode[] = [
   new CustomNode('red', [1, 2, 4]),
   new CustomNode('white', [2]),
   new CustomNode('red', [3, 4]),
@@ -18,7 +18,32 @@ const graph: CustomNode[] = [
   new CustomNode('blue', []),
 ];
 
-function listPaths(graph: CustomNode[]) {
+const undesirableColor = 'blue';
+
+function listPaths(preliminaryGraph: CustomNode[]) {
+  const undesiredColorIndices = preliminaryGraph.reduce<number[]>(
+    (indices, node, index) => {
+      if (
+        node.color === undesirableColor &&
+        indices.find((idx) => idx === index) === undefined
+      ) {
+        indices.push(index);
+      }
+      return indices;
+    },
+    []
+  );
+
+  const graph = preliminaryGraph.reduce<CustomNode[]>((graph, currentNode) => {
+    if (currentNode.color !== undesirableColor) {
+      const edges = currentNode.edges.filter(
+        (edge) =>
+          undesiredColorIndices.find((index) => index === edge) === undefined
+      );
+      graph.push(new CustomNode(currentNode.color, edges));
+    }
+    return graph;
+  }, []);
   const values: EdgesType[] = [];
   function valuesExtractor(edges: EdgesType, baseEdge: EdgesType) {
     for (let i = 0; i < edges.length; i++) {
@@ -36,5 +61,5 @@ function listPaths(graph: CustomNode[]) {
   return values;
 }
 
-const values = listPaths(graph);
+const values = listPaths(firstGraph);
 console.log('values: ', values, 'values.length: ', values.length);
