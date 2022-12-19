@@ -1,2 +1,2 @@
 # Informatik I 
-## Aufgaben mit testen im NodeJS
+## Hausaufgaben mit testen im NodeJS
