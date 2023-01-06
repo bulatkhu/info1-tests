@@ -5,7 +5,8 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "outDir": "build"
   },
   "include": [
     "src/**/*.ts",
