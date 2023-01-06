@@ -14,11 +14,11 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 16
       - name: Install dependencies
-        run: npm install
+        run: yarn install
       - name: Run tests
-        run: npm test
+        run: yarn test
         if: failure()
       - name: Set commit status to failure
         uses: actions/github-script@v3
