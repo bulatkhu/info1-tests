@@ -64,4 +64,33 @@ describe('should pass all tests', () => {
       [3],
     ]);
   });
+
+  it('exclude all paths to blue and show all paths #1', () => {
+    expect(
+      listPaths(
+        [
+          new CustomNode('blue', [1, 2, 4]),
+          new CustomNode('white', [2]),
+          new CustomNode('red', [3, 4]),
+          new CustomNode('yellow', [4]),
+          new CustomNode('red', []),
+        ],
+        'red'
+      )
+    ).toStrictEqual([[0],[0,1],[1],[2]]);
+  });
+
+  it('exclude all paths to blue and show all paths #2', () => {
+    expect(
+      listPaths([
+        new CustomNode('red', [1, 2, 4]),
+        new CustomNode('white', [2]),
+        new CustomNode('blue', [3, 4]),
+        new CustomNode('yellow', [4]),
+        new CustomNode('blue', []),
+      ],
+        'blue'
+      )
+    ).toStrictEqual([[0],[0,1],[2],[2,3]]);
+  });
 });

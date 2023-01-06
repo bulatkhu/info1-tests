@@ -53,3 +53,59 @@ export function listPaths(
   }
   return values;
 }
+
+
+const array = [
+  [0],
+  [0, 1],
+  [0, 1, 2],
+  [0, 1, 2, 3],
+  [0, 1, 2, 3, 4],
+  [0, 1, 2, 4],
+  [0, 2],
+  [0, 2, 3],
+  [0, 2, 3, 4],
+  [0, 2, 4],
+  [0, 4],
+  [1],
+  [1, 2],
+  [1, 2, 3],
+  [1, 2, 3, 4],
+  [1, 2, 4],
+  [2],
+  [2, 3],
+  [2, 3, 4],
+  [2, 4],
+  [3],
+  [3, 4],
+  [4],
+];
+
+function isArrayInIndices(values: number[][], indices: number[]) {
+  const newValues: number[][] = [];
+  const indicesAsKeys: Record<string, boolean> = {};
+  for (let i = 0; i < indices.length; i++) {
+    const index = indices[i];
+    indicesAsKeys[index] = true;
+  }
+  for (let i = 0; i < values.length; i++) {
+    const value = values[i];
+    let shouldAdd = true;
+
+    for (let j = 0; j < value.length; j++) {
+      const innerValue = value[j];
+
+      if (indicesAsKeys[innerValue] && shouldAdd) {
+        shouldAdd = false;
+      }
+    }
+
+    if (shouldAdd) {
+      newValues.push(value)
+    }
+  }
+
+  return newValues;
+}
+
+console.log(isArrayInIndices(array, [2]));
