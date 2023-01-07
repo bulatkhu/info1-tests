@@ -4,6 +4,12 @@ const b1 = Math.ceil(Math.log2(499));
 const b2 = Math.ceil(Math.log2(15));
 const b3 = Math.ceil(Math.log2(3));
 
+// number of bits to shift
+const s0 = 0;
+const s1 = s0 + b0;
+const s2 = s1 + b1;
+const s3 = s2 + b2;
+
 export function pack(a: number, b: number, c: number, d: number): number {
   // check parameter types and ranges
   if (
@@ -21,12 +27,6 @@ export function pack(a: number, b: number, c: number, d: number): number {
     throw 'parameter value out of range';
   }
 
-  // number of bits to shift
-  const s0 = 0;
-  const s1 = s0 + b0;
-  const s2 = s1 + b1;
-  const s3 = s2 + b2;
-
   // pack the numbers
   return (
     (2 ** s0 * (a - 1)) |
@@ -41,12 +41,6 @@ export function unpack(n: number): number[] {
   if (typeof n !== 'number') {
     throw 'integer parameter expected';
   }
-
-  // number of bits to shift
-  const s0 = 0;
-  const s1 = s0 + b0;
-  const s2 = s1 + b1;
-  const s3 = s2 + b2;
 
   // unpack the number
   const a = (n >>> s0) & (2 ** b0 - 1);
