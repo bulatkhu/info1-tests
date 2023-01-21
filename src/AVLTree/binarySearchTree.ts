@@ -1,5 +1,7 @@
 namespace binarySearchTree {
   type BinarySearchTreeType = BinarySearchTree | null;
+  type BinaryTreeKey = BinarySearchTree['key'];
+  type BinaryTreeValue = BinarySearchTree['value'];
 
   class BinarySearchTree {
     key: number;
@@ -8,10 +10,10 @@ namespace binarySearchTree {
     right: BinarySearchTreeType;
 
     constructor(
-      key: BinarySearchTree['key'],
-      value: BinarySearchTree['value'],
-      left: BinarySearchTree['left'] = null,
-      right: BinarySearchTree['right'] = null
+      key: BinaryTreeKey,
+      value: BinaryTreeValue,
+      left: BinarySearchTreeType = null,
+      right: BinarySearchTreeType = null
     ) {
       this.key = key;
       this.value = value;
@@ -30,6 +32,28 @@ namespace binarySearchTree {
         return child.search(k);
       }
       return null;
+    }
+
+    insert(key: BinaryTreeKey, value: BinaryTreeValue) {
+      if (this.key === key) {
+        this.value = value;
+        return;
+      }
+
+      if (key < this.key) {
+        if (this.left) {
+          this.left.insert(key, value);
+        } else {
+          this.left = new BinarySearchTree(key, value);
+        }
+        return;
+      }
+
+      if (this.right) {
+        this.right.insert(key, value);
+      } else {
+        this.right = new BinarySearchTree(key, value);
+      }
     }
   }
 
@@ -55,7 +79,37 @@ namespace binarySearchTree {
     )
   );
 
-  const result = tree.search(4);
+  //         2 (cherry)
+  //     3 (banana)
+  //         4 (date)
+  // 5 (apple)
+  //         6 (grape)
+  //             7 (kiwi)
+  //     8 (fig)
+  //             9 (mango)
+  //         10 (lemon)
+  //             11 (orange)
 
-  console.log('result', result);
+  function printTree(root: BinarySearchTree | null, level: number = 0) {
+    if (root === null) {
+      return;
+    }
+    printTree(root.left, level + 1);
+    console.log(' '.repeat(level * 4) + root.key + ' (' + root.value + ')');
+    printTree(root.right, level + 1);
+  }
+
+  printTree(tree);
+  console.log('');
+
+  tree.insert(1, 'apple 2');
+  tree.insert(0, 'apple 3');
+  tree.insert(-1, 'apple 4');
+  tree.insert(5, 'apple 4');
+  tree.insert(12, 'apple 4');
+  tree.insert(34, 'apple 4');
+
+  printTree(tree);
+
+  // console.log('result', result);
 }
