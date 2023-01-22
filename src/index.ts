@@ -1,1 +1,1 @@
-import './AVLTree/binarySearchTree';
+import './übungsklausur4';
