@@ -1,1 +1,1 @@
-import './übungsklausur4';
+import './zeichenkettenImArray';

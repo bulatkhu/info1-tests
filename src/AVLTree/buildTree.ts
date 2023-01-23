@@ -60,25 +60,18 @@ function buildTree(arr: any[]) {
   return tree;
 }
 
-function colorOrder(color: string): number {
-  switch (color) {
-    case 'pink':
-      return 1;
-    case 'rot':
-      return 2;
-    case 'braun':
-      return 3;
-    case 'blau':
-      return 4;
-    case 'schwarz':
-      return 5;
-    case 'grau':
-      return 6;
-    case 'gelb':
-      return 7;
-    default:
-      return 0;
-  }
+const colorsMap = {
+  pink: 1,
+  rot: 2,
+  braun: 3,
+  blau: 4,
+  schwarz: 5,
+  grau: 6,
+  gelb: 7,
+};
+
+function colorOrder(color: keyof typeof colorsMap): number {
+  return colorsMap[color];
 }
 
 let arr = ['pink 12', 'schwarz 11', 'grau 18', 'schwarz 11', 'schwarz 3'];
