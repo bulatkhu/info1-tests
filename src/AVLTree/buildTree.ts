@@ -45,6 +45,17 @@ function parseKey(key: Key) {
   return [color as Colors, +value] as const;
 }
 
+export function printTree(root: MyNode | null, level: number = 0) {
+  if (root === null) {
+    return;
+  }
+  const [color, number] = parseKey(root.m_key);
+
+  printTree(root.m_left, level + 1);
+  console.log(' '.repeat(level * 4) + color + ' (' + number + ')');
+  printTree(root.m_right, level + 1);
+}
+
 function compareKeys(key1: Key, key2: Key) {
   const [color1, number1] = parseKey(key1);
   const [color2, number2] = parseKey(key2);
@@ -66,10 +77,20 @@ function compareKeys(key1: Key, key2: Key) {
   return { field: rightKey, isEqual: false };
 }
 
-function treeFind(node: MyNode, key: Key) {
-  const [color, number] = parseKey(key);
-
-  const middleKey = node[valueKey];
+function treeFind(node: MyNode, key: Key): Maybe<MyNode> {
+  const { field: originalField, isEqual } = compareKeys(node[valueKey], key);
+  if (isEqual) {
+    return node;
+  }
+  const field = originalField === rightKey ? leftKey : rightKey;
+  const current = node[field];
+  if (current) {
+    if (current[valueKey] === key) {
+      return current;
+    }
+    return treeFind(current, key);
+  }
+  return null;
 }
 
 function buildTree(arr: Key[]) {
@@ -97,5 +118,10 @@ const arr: Key[] = [
   'schwarz 3',
 ];
 const tree = buildTree(arr);
-console.log(tree.str());
+printTree(tree);
+
+const value = treeFind(tree, 'pink 12');
+
+console.log('value', value?.m_key);
+
 // Output: "pink 12 ((schwarz 3) schwarz 11 (grau 18))"
