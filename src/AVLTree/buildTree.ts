@@ -14,9 +14,9 @@ type Colors = keyof typeof colorsMap;
 
 type Key = `${Colors} ${number}`;
 
-const leftKey = 'm_left';
-const rightKey = 'm_right';
-const valueKey = 'm_key';
+const leftKey = 'm_left' as const;
+const rightKey = 'm_right' as const;
+const valueKey = 'm_key' as const;
 
 class MyNode {
   [valueKey]: Key;
@@ -50,14 +50,20 @@ function compareKeys(key1: Key, key2: Key) {
   const [color2, number2] = parseKey(key2);
 
   if (color1 === color2) {
-    return number1 < number2 ? leftKey : rightKey;
+    if (number1 === number2) {
+      return { field: rightKey, isEqual: true };
+    }
+
+    return number1 < number2
+      ? { field: leftKey, isEqual: false }
+      : { field: rightKey, isEqual: false };
   }
 
   if (colorsMap[color1] < colorsMap[color2]) {
-    return leftKey;
+    return { field: leftKey, isEqual: false };
   }
 
-  return rightKey;
+  return { field: rightKey, isEqual: false };
 }
 
 function treeFind(node: MyNode, key: Key) {
@@ -74,11 +80,11 @@ function buildTree(arr: Key[]) {
     let parent: Maybe<MyNode> = null!;
     while (current) {
       parent = current;
-      const keyField = compareKeys(arr[i], current[valueKey]);
-      current = current[keyField];
+      const { field } = compareKeys(arr[i], current[valueKey]);
+      current = current[field];
     }
-    const keyField = compareKeys(arr[i], parent[valueKey]);
-    parent[keyField] = new MyNode(`${color} ${number}`);
+    const { field } = compareKeys(arr[i], parent[valueKey]);
+    parent[field] = new MyNode(`${color} ${number}`);
   }
   return tree;
 }
