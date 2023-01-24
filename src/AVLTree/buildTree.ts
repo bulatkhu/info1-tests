@@ -18,10 +18,10 @@ const leftKey = 'm_left' as const;
 const rightKey = 'm_right' as const;
 const valueKey = 'm_key' as const;
 
-class MyNode {
+class Node {
   [valueKey]: Key;
-  [leftKey]: Maybe<MyNode> = null;
-  [rightKey]: Maybe<MyNode> = null;
+  [leftKey]: Maybe<Node> = null;
+  [rightKey]: Maybe<Node> = null;
 
   constructor(key: Key) {
     this[valueKey] = key;
@@ -45,7 +45,7 @@ function parseKey(key: Key) {
   return [color as Colors, +value] as const;
 }
 
-export function printTree(root: MyNode | null, level: number = 0) {
+export function printTree(root: Maybe<Node>, level: number = 0) {
   if (root === null) {
     return;
   }
@@ -77,7 +77,7 @@ function compareKeys(key1: Key, key2: Key) {
   return { field: rightKey, isEqual: false };
 }
 
-function treeFind(node: MyNode, key: Key): Maybe<MyNode> {
+function treeFind(node: Node, key: Key): Maybe<Node> {
   const { field: originalField, isEqual } = compareKeys(node[valueKey], key);
   if (isEqual) {
     return node;
@@ -94,23 +94,23 @@ function treeFind(node: MyNode, key: Key): Maybe<MyNode> {
 }
 
 function buildTree(arr: Key[]) {
-  const tree = new MyNode(arr[0]);
+  const tree = new Node(arr[0]);
   arr.forEach((item) => {
     const [color, number] = parseKey(item);
-    let current: Maybe<MyNode> = tree;
+    let current: Maybe<Node> = tree;
 
     if (treeFind(current, item)) {
       return;
     }
 
-    let parent: Maybe<MyNode> = null!;
+    let parent: Maybe<Node> = null!;
     while (current) {
       parent = current;
       const { field } = compareKeys(item, current[valueKey]);
       current = current[field];
     }
     const { field } = compareKeys(item, parent[valueKey]);
-    parent[field] = new MyNode(`${color} ${number}`);
+    parent[field] = new Node(`${color} ${number}`);
   });
   return tree;
 }
