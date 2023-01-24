@@ -94,19 +94,24 @@ function treeFind(node: MyNode, key: Key): Maybe<MyNode> {
 }
 
 function buildTree(arr: Key[]) {
-  let tree = new MyNode(arr[0]);
-  for (let i = 1; i < arr.length; i++) {
-    const [color, number] = parseKey(arr[i]);
+  const tree = new MyNode(arr[0]);
+  arr.forEach((item) => {
+    const [color, number] = parseKey(item);
     let current: Maybe<MyNode> = tree;
+
+    if (treeFind(current, item)) {
+      return;
+    }
+
     let parent: Maybe<MyNode> = null!;
     while (current) {
       parent = current;
-      const { field } = compareKeys(arr[i], current[valueKey]);
+      const { field } = compareKeys(item, current[valueKey]);
       current = current[field];
     }
-    const { field } = compareKeys(arr[i], parent[valueKey]);
+    const { field } = compareKeys(item, parent[valueKey]);
     parent[field] = new MyNode(`${color} ${number}`);
-  }
+  });
   return tree;
 }
 
@@ -116,6 +121,7 @@ const arr: Key[] = [
   'grau 18',
   'schwarz 11',
   'schwarz 3',
+  'grau 19',
 ];
 const tree = buildTree(arr);
 printTree(tree);
