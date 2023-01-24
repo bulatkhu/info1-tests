@@ -16,24 +16,25 @@ type Key = `${Colors} ${number}`;
 
 const leftKey = 'm_left';
 const rightKey = 'm_right';
+const valueKey = 'm_key';
 
 class MyNode {
-  m_key: Key;
+  [valueKey]: Key;
   [leftKey]: Maybe<MyNode> = null;
   [rightKey]: Maybe<MyNode> = null;
 
   constructor(key: Key) {
-    this.m_key = key;
+    this[valueKey] = key;
   }
 
   str(): string {
     let s = '';
-    if (this.m_left != null) {
-      s += `(${this.m_left.str()}) `;
+    if (this[leftKey] != null) {
+      s += `(${this[leftKey].str()}) `;
     }
-    s += this.m_key;
-    if (this.m_right != null) {
-      s += ` (${this.m_right.str()})`;
+    s += this[valueKey];
+    if (this[rightKey] != null) {
+      s += ` (${this[rightKey].str()})`;
     }
     return s;
   }
@@ -62,7 +63,7 @@ function compareKeys(key1: Key, key2: Key) {
 function treeFind(node: MyNode, key: Key) {
   const [color, number] = parseKey(key);
 
-  const middleKey = node.m_key;
+  const middleKey = node[valueKey];
 }
 
 function buildTree(arr: Key[]) {
@@ -73,10 +74,10 @@ function buildTree(arr: Key[]) {
     let parent: Maybe<MyNode> = null!;
     while (current) {
       parent = current;
-      const keyField = compareKeys(arr[i], current.m_key);
+      const keyField = compareKeys(arr[i], current[valueKey]);
       current = current[keyField];
     }
-    const keyField = compareKeys(arr[i], parent.m_key);
+    const keyField = compareKeys(arr[i], parent[valueKey]);
     parent[keyField] = new MyNode(`${color} ${number}`);
   }
   return tree;
