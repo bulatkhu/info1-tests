@@ -1,1 +1,1 @@
-import './AVLTree/buildTree';
+import './graphSearchAlgorithms';
