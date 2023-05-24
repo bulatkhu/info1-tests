@@ -1,1 +1,1 @@
-import './graphSearchAlgorithms';
+import './graphSearchAlgorithms/bfs';
