@@ -46,9 +46,9 @@ const points = {
 } satisfies PointMap;
 
 const points2 = {
-  D: ['B', 'E'],
-  B: ['A', 'C', 'D'],
   A: ['B'],
+  B: ['A', 'C', 'D'],
+  D: ['B', 'E'],
   C: ['B'],
   E: ['D', 'F'],
   F: ['E'],
