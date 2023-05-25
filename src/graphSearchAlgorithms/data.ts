@@ -1,4 +1,6 @@
 // DATA
+import { PointMap } from './dfs2';
+
 const airports = 'PHX BKK OKC JFK LAX MEX EZE HEL LOS LAP LIM'.split(' ');
 
 const routes = [
@@ -32,4 +34,24 @@ function addEdge(origin: string, destination: string) {
 airports.forEach(addNode);
 routes.forEach((route) => addEdge(route[0], route[1]));
 
-export { adjacencyList };
+const points = {
+  A: ['B', 'C', 'D', 'E'],
+  B: ['A', 'C', 'G'],
+  C: ['A', 'B', 'D'],
+  D: ['A', 'C', 'E', 'H'],
+  E: ['A', 'D', 'H', 'F'],
+  F: ['E', 'G', 'H'],
+  G: ['B', 'F'],
+  H: ['D', 'F'],
+} satisfies PointMap;
+
+const points2 = {
+  D: ['B', 'E'],
+  B: ['A', 'C', 'D'],
+  A: ['B'],
+  C: ['B'],
+  E: ['D', 'F'],
+  F: ['E'],
+} as PointMap;
+
+export { adjacencyList, points2, points };
