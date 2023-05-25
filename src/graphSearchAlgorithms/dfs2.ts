@@ -15,7 +15,7 @@ const points = {
 
 const dfs2 = (
   from: PointsT,
-  map: PointMap = points,
+  map: PointMap,
   conditioner?: (to: PointsT) => boolean,
   visited = new Set<string>()
 ) => {
@@ -38,7 +38,20 @@ const dfs2 = (
   }
 };
 
-dfs2('A', points, (destination) => destination === 'H');
+dfs2('C', points);
+
+console.log('--------------------');
+
+const points2 = {
+  D: ['B', 'E'],
+  B: ['A', 'C', 'D'],
+  A: ['B'],
+  C: ['B'],
+  E: ['D', 'F'],
+  F: ['E'],
+} as PointMap;
+
+dfs2('A', points2, (destination) => destination === 'H');
 // A
 // B
 // C
