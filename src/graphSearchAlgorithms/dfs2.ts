@@ -1,6 +1,6 @@
-import { points, points2 } from './data';
+import { points, points2, points3 } from './data';
 
-export type PointsT = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+export type PointsT = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | string;
 
 export type PointMap = Record<PointsT, PointsT[]>;
 
@@ -11,8 +11,6 @@ const dfs2 = (
   visited = new Set<string>()
 ) => {
   const destinations = map[from];
-
-  // console.log('destinations', destinations);
 
   console.log(from);
   visited.add(from);
@@ -34,6 +32,11 @@ dfs2('C', points);
 console.log('--------------------');
 
 dfs2('A', points2, (destination) => destination === 'H');
+
+console.log('--------------------');
+
+dfs2('0', points3);
+
 // A
 // B
 // C

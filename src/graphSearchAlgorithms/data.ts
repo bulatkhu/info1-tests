@@ -54,4 +54,14 @@ const points2 = {
   F: ['E'],
 } as PointMap;
 
-export { adjacencyList, points2, points };
+const points3 = {
+  0: ['1', '5', '6'],
+  1: ['3', '4', '5'],
+  2: [],
+  3: [],
+  4: ['2', '6'],
+  5: [],
+  6: ['0'],
+};
+
+export { adjacencyList, points2, points, points3 };
