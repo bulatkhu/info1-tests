@@ -1,5 +1,5 @@
 import { PointMap, PointsT } from './dfs2';
-import { points, points2 } from './data';
+import { points, points2, points3 } from './data';
 
 const bfs2 = (from: PointsT, points: PointMap) => {
   const queue = [from];
@@ -27,3 +27,5 @@ const bfs2 = (from: PointsT, points: PointMap) => {
 bfs2('A', points);
 console.log('--------------------');
 bfs2('A', points2);
+console.log('--------------------');
+bfs2('0', points3);

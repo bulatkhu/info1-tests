@@ -1,1 +1,1 @@
-import './graphSearchAlgorithms/dfs2';
+import './graphSearchAlgorithms/bfs2';
